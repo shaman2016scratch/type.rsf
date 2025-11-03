@@ -9,7 +9,7 @@ sys = {
   "os": "kakaya-to operactionka",
   "RussiaScript Version": "1.1",
   "Type.rsf Version": "1.0",
-  "type.rsf module update": "1.0$03$11$2025&15$11$??",
+  "type.rsf module update": "1.0$03$11$2025&15$18$??",
 }
 RussiaScriptUser = {
   "func": {
@@ -24,7 +24,9 @@ RussiaScriptUser = {
     "Chat Bot": {},
   },
 }
-function RussiaScriptPomogFunc(args) {}
+function RussiaScriptPomogFunc(args) {
+  if (args.func === '') {}
+}
 function RsJsConsole(ty, te) {
   if (ty === 'log') {
     console.log(`RussiaScript: ${te}`)
