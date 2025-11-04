@@ -9,7 +9,7 @@ sys = {
   "os": "kakaya-to operactionka",
   "RussiaScript Version": "1.1",
   "Type.rsf Version": "1.0",
-  "type.rsf module update": "1.0$03$11$2025&15$18$??",
+  "type.rsf module update": "1.0$04$11$2025&22$16$??",
 }
 RussiaScriptUser = {
   "func": {
@@ -605,6 +605,9 @@ function RussiaScriptGetValue(v) {
     const searchParams = url.searchParams
     return searchParams.get(ii2)
   }
+  if (ii == 'получить тип') {
+    return typeof ii2
+  }
 }
 function SessionRussiaScript() {
   SessionRussiaScript = {
@@ -724,9 +727,9 @@ function runRussiaScript(code) {
     }
     if (i4 == 'если') {
       if (RussiaScriptGetValue(i5.bol)) {
-        runRussiaScript(RussiaScriptGetValue(i5["то"]))
+        runRussiaScript(`\{"libs":"","terminal":"","code":"${RussiaScriptGetValue(i5["то"])}"\}`)
       } else {
-        runRussiaScript(RussiaScriptGetValue(i5["иначе"]))
+        runRussiaScript(`\{"libs":"","terminal":"","code":"${RussiaScriptGetValue(i5["иначе"])}"\}`)
       }
     }
     if (i4 == 'js-функция') {
@@ -745,7 +748,7 @@ function runRussiaScript(code) {
     }
     if (i4 == 'пока') {
       while (RussiaScriptGetValue(i5.bol)) {
-        runRussiaScript(RussiaScriptGetValue(i5.code))
+        runRussiaScript(`\{"libs":"","terminal":"","code":"${RussiaScriptGetValue(i5.code)}"\}`)
       }
     }
     if (i4 == 'alert') {
@@ -768,6 +771,14 @@ function runRussiaScript(code) {
       }
       if (i5['метод'] == 'запрос') {
         RsJsConsole('input', RussiaScriptGetValue(i5['значение']))
+      }
+    }
+    if (i4 === 'если тип равен иначе ошибка') {
+      if (typeof i5['значение'] === i5['тип']) {
+        runRussiaScript(`\{"libs":"","terminal":"","code":"${RussiaScriptGetValue(i5["то"])}"\}`)
+      } else {
+        RsJsConsole('error', RussiaScriptGetValue(i5["ошибка"]))
+        console.error(`TypeRussiaScript (type.rsf): type error: ${i5['ошибка']}`)
       }
     }
   }
